@@ -5,27 +5,28 @@ import { MdDelete } from "react-icons/md";
 import { IoMdAddCircle } from "react-icons/io";
 // import { useState } from 'react';
 
-const Card = () => {
+const Card = ( home ) => {
+  console.log( 'HOME -> ', home);
   const data = [
     {
       title: "The best coding channel",
       desc: "I have to create my channel",
-      status : "Incomplete"
+      status : "In Complete"
     },
     {
       title: "Important tasks",
       desc: "lalalal",
-      status : "complete"
+      status : "Complete"
     },
     {
       title: "Completed tasks",
       desc: "hello" ,
-      status : "Incomplete"
+      status : "In Complete"
     },
     {
       title: "Incomplete tasks",
       desc: "test" ,
-      status : "Incomplete"
+      status : "In Complete"
     },
   ];
   
@@ -40,7 +41,7 @@ const Card = () => {
             <p className='text-gray-300 my-2'>{item.desc}</p> 
           </div>
           <div className='mt-4 w-full flex items-center'>
-            <button className='bg-red-400 p-2 rounded w-3/6'> {item.status} </button>
+            <button className= {` ${item.status === "In Complete" ?  "bg-red-400" : "bg-green-700" } p-2 rounded w-3/6 `}> {item.status} </button>
             <div className='text-white  p-2 w-3/6 text-2xl font-semibold flex justify-around'>
               <button> <CiHeart /> </button>
               <button> <FaEdit /> </button>
@@ -49,10 +50,12 @@ const Card = () => {
           </div>
         </div>
       ))}
-      <div className=' flex flex-col justify-center items-center bg-gray-800 rounded-sm p-4 hover:scale-105 hover: cursor-pointer transition-all duration-300'>
-        <IoMdAddCircle  className='text-5xl'/>
+      {home && (
+        <div className=' flex flex-col justify-center items-center bg-gray-800 rounded-sm p-4 hover:scale-105 hover: cursor-pointer transition-all duration-300'>
+          <IoMdAddCircle  className='text-5xl '/>
           <h2 className='text-2xl mt-4'>Add Task</h2>
-        </div>
+        </div> 
+      )}
     </div>
   );
 }
