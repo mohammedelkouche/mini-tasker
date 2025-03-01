@@ -5,7 +5,7 @@ import { MdDelete } from "react-icons/md";
 import { IoMdAddCircle } from "react-icons/io";
 // import { useState } from 'react';
 
-const Card = ( home ) => {
+const Card = ({ home , setInputDiv}) => {  // Destructure correctly
   console.log( 'HOME -> ', home);
   const data = [
     {
@@ -29,8 +29,6 @@ const Card = ( home ) => {
       status : "In Complete"
     },
   ];
-  
-  // const [Importantbuttom, setImportantbuttom] = useState(Incomplete);
 
   return (
     <div className='grid grid-cols-3 gap-4 p-4'>
@@ -51,10 +49,10 @@ const Card = ( home ) => {
         </div>
       ))}
       {home && (
-        <div className=' flex flex-col justify-center items-center bg-gray-800 rounded-sm p-4 hover:scale-105 hover: cursor-pointer transition-all duration-300'>
+        <button className=' flex flex-col justify-center items-center bg-gray-800 rounded-sm p-4 hover:scale-105 hover: cursor-pointer transition-all duration-300' onClick={ ()=> setInputDiv("fixed")}>
           <IoMdAddCircle  className='text-5xl '/>
           <h2 className='text-2xl mt-4'>Add Task</h2>
-        </div> 
+        </button> 
       )}
     </div>
   );

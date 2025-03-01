@@ -6,6 +6,8 @@ import CompletedTasks from './pages/CompletedTasks'
 import IncompletedTasks from './pages/IncompletedTasks'
 // import { BrowserRouter as Router , Routes , Route} from 'react-router-dom'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Signup from './pages/Signup.jsx'
+import Login from './pages/Login.jsx'
 
 
 const App = () => {
@@ -19,6 +21,8 @@ const App = () => {
             < Route path='/CompletedTasks'  element={ <CompletedTasks/>} />
             < Route path='/IncompletedTasks'  element={ <IncompletedTasks/>} />
           </ Route>
+          < Route path='/signup' element={ <Signup /> } />
+          < Route path='/login' element={ <Login /> } />
         </Routes>
       </BrowserRouter>
     </div>
