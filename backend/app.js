@@ -16,7 +16,8 @@ app.use("/", (req, res) =>{
     res.send("hello frome backend side");
 });
 
-const port = 5000;
+const port = process.env.PORT;
+
 
 app.listen(port, ()=>{
     console.log("server started")
