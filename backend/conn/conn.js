@@ -9,10 +9,7 @@ const conn = async () => {
     // }
 
     try {
-        const response = await mongoose.connect(process.env.MONGO_URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
+        const response = await mongoose.connect(process.env.MONGO_URL);
         
         console.log("Connected to DB successfully!"); // Only logs when successful
 
