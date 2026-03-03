@@ -38,6 +38,7 @@ router.post("/sign-in", async (req, res) => {
 
         // Generate JWT token
         const token = generateToken(newUser._id);
+        console.log("Generated token: ", token); // Log the generated token for debugging
 
         return res.status(200).json({ message: "Sign-in successful", token });
 
@@ -65,12 +66,14 @@ router.post("/log-in", async (req, res) => {
         const existingUser = await User.findOne({ username });
 
         if (!existingUser) {
+            console.log("User not found");
             return res.status(400).json({ message: "Invalid credentials" });
         }
 
         // Compare the provided password with the stored hashed password in the database
         const isMatch = await bcrypt.compare(password, existingUser.password);
         if (!isMatch) {
+            console.log("Password does not match");
             return res.status(400).json({ message: "Invalid credentials" });
         }
 

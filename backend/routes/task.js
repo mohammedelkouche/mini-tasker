@@ -16,8 +16,15 @@ router.post("/create-task", verifyToken, async(req, res) =>{
 		});
 		const savetask = await newTask.save();
 		const taskId = savetask._id;
-		await User.findByIdAndUpdate(userId, {$push :{tasks: taskId._id}});
-		res.status(200).json({message : "Task Created"});
+		const updatedUser = await User.findByIdAndUpdate(
+			userId,
+			{ $push: { tasks: taskId } },
+			{ new: true }
+		);
+		if (!updatedUser) {
+			return res.status(404).json({ message: "User not found" });
+		}
+		res.status(200).json({ message: "Task Created", task: savetask });
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({message : "Internal Server Error"});

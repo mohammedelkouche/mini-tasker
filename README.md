@@ -15,7 +15,7 @@ Mini-Tasker is a lightweight task management web application built with a React 
 - Backend: Node.js, Express
 - Database: MongoDB (Mongoose)
 - Auth: bcryptjs (password hashing), jsonwebtoken (JWT)
-- Dev tools: VS Code, Postman / Insomnia
+- Dev tools: VS Code, Postman
 - Package manager: npm
 - Optional: Docker (for production/DB), dotenv for env vars
 
@@ -116,6 +116,6 @@ Frontend:
 - Follow code style, add tests for new features, open PRs against main branch.
 - Provide clear commit messages and update README for new features.
 
-## License
-- Add your preferred license (e.g. MIT) or company/legal notice.
+<!-- ## License
+- Add your preferred license (e.g. MIT) or company/legal notice. -->
 
