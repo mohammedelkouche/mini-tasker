@@ -37,6 +37,7 @@ router.post("/sign-in", async (req, res) => {
         await newUser.save();
 
         // Generate JWT token
+        // newUser._id is the unique identifier for the user in MongoDB, which is used to create the token payload.
         const token = generateToken(newUser._id);
         console.log("Generated token: ", token); // Log the generated token for debugging
 
