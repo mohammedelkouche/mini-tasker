@@ -5,15 +5,30 @@ import ImportantTasks from './pages/ImportantTasks'
 import CompletedTasks from './pages/CompletedTasks'
 import IncompletedTasks from './pages/IncompletedTasks'
 // import { BrowserRouter as Router , Routes , Route} from 'react-router-dom'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Signup from './pages/Signup.jsx'
 import Login from './pages/Login.jsx'
+import { useSelector } from 'react-redux'
+import { useEffect } from 'react';
 
 
 const App = () => {
+  const isloggedIn = useSelector((state) => state.auth.isloggedIn);
+  console.log("isloggedIn " , isloggedIn);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+      if (!isloggedIn) {
+        console.log("User is not logged in, navigating to login page.");
+        navigate('/signup');
+      }
+  },[]);
+  // },[isloggedIn, navigate]);
+  
+
   return (
     <div className='bg-gray-900 text-white h-screen p-2 relative'>
-      < BrowserRouter future={{ v7_startTransition: true }}>
+      {/* < Router future={{ v7_startTransition: true }}> */}
         < Routes >
           < Route exact path='/' element={ <Home/> } > 
             < Route index element={ <AllTasks/>} />
@@ -24,7 +39,7 @@ const App = () => {
           < Route path='/signup' element={ <Signup /> } />
           < Route path='/login' element={ <Login /> } />
         </Routes>
-      </BrowserRouter>
+      {/* </Router> */}
     </div>
   )
 }

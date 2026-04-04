@@ -165,4 +165,91 @@ router.put("/update-important-task/:id", verifyToken, async(req, res) => {
 	}
 })
 
+// Get All Important Tasks
+router.get("/get-important-tasks", verifyToken, async(req, res) => {
+	try {
+		// const all_task = await User.findOne(😂);
+		const userId = req.user.id;
+		
+		// option sort by createdAt in descending order (newest first).
+		const Data = await User.findById(userId).populate(
+			{
+				path:"tasks",
+				match: { important: true },
+				options:{ sort: {createdAt: -1}},
+			}		
+		);
+        if (!Data) {
+            return res.status(404).json({ message: "User not found" });
+        }
+		const ImporTasksData = Data.tasks; // Access the populated tasks array
+
+        res.status(200).json({ data: ImporTasksData});
+		
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({message : "Internal Server Error"});
+	}
+})
+
+// Get All complite Tasks
+router.get("/get-complete-tasks", verifyToken, async(req, res) => {
+	try {
+		// const all_task = await User.findOne(😂);
+		const userId = req.user.id;
+		
+		// option sort by createdAt in descending order (newest first).
+		const Data = await User.findById(userId).populate(
+			{
+				path:"tasks",
+				match: { complete: true },
+				options:{ sort: {createdAt: -1}},
+			}		
+		);
+        if (!Data) {
+            return res.status(404).json({ message: "User not found" });
+        }
+		const completesData = Data.tasks; // Access the populated tasks array
+		console.log("complete data = ", completesData);
+
+        res.status(200).json({ data: completesData});
+		
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({message : "Internal Server Error"});
+	}
+})
+
+
+// Get All incomplete Tasks
+router.get("/get-incomplete-tasks", verifyToken, async(req, res) => {
+	try {
+		// const all_task = await User.findOne(😂);
+		const userId = req.user.id;
+		
+		// option sort by createdAt in descending order (newest first).
+		const Data = await User.findById(userId).populate(
+			{
+				path:"tasks",
+				match: { complete: false },
+				options:{ sort: {createdAt: -1}},
+			}		
+		);
+        if (!Data) {
+            return res.status(404).json({ message: "User not found" });
+        }
+		const completesData = Data.tasks; // Access the populated tasks array
+		console.log("complete data = ", completesData);
+
+        res.status(200).json({ data: completesData});
+		
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({message : "Internal Server Error"});
+	}
+})
+
+
+
+
 module.exports = router;
