@@ -50,7 +50,8 @@ router.get("/get-all-tasks", verifyToken, async(req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        res.status(200).json({ data: userData.tasks});
+        // res.status(200).json({ data: userData.tasks});
+        res.status(200).json({ data: userData});
 		
 
 		
@@ -114,7 +115,7 @@ router.delete("/update-tasks/:id", verifyToken, async(req, res) => {
 })
 
 
-// update-impostant task
+// update-important task
 router.put("/update-important-task/:id", verifyToken, async(req, res) => {
 	try {
 		const { id } = req.params;
@@ -141,7 +142,7 @@ router.put("/update-important-task/:id", verifyToken, async(req, res) => {
 
 
 // update-complite task
-router.put("/update-important-task/:id", verifyToken, async(req, res) => {
+router.put("/update-complete-task/:id", verifyToken, async(req, res) => {
 	try {
 		const { id } = req.params;
 		// or  const taskId = req.params.id;

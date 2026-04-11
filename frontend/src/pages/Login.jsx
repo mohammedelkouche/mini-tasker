@@ -1,15 +1,25 @@
-import React from 'react'
-import { Link} from 'react-router-dom'
+import { Link, Navigate, useNavigate} from 'react-router-dom'
 import { useState } from 'react';
 import axios from 'axios';
+import { authAction } from "../store/auth";
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const Login = () => {
 
+  const isloggedIn = useSelector((state) => state.auth.isloggedIn);
+  const history = useNavigate();
+
   const [Data , setData] = useState({ username:"", password:"" });
   
   const [error, setError] = useState("");
+  const dispatch = useDispatch();
   // const navigate = useNavigate();
+
+  if (isloggedIn === true) {
+    return <Navigate to="/" replace />;
+    // history("/");
+  }
 
   const change = (e) => {
     setError("");
@@ -25,9 +35,13 @@ const Login = () => {
       else
       {
         const responce =  await axios.post("http://localhost:5000/api/v1/log-in" , Data);
-        console.log(responce);
         // is i have to empty the data after submiting the form
         setData({ username:"", password:"" });
+        localStorage.setItem("id", responce.data.id);
+        localStorage.setItem("token", responce.data.token);
+        dispatch(authAction.login());
+        // dispatch(autAction.login({id: responce.data.id, token: responce.data.token}));
+        history("/");
       }
     } catch (error) {
       setError(error.response?.data?.message || "Signup failed");

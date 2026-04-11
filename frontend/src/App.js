@@ -8,17 +8,23 @@ import IncompletedTasks from './pages/IncompletedTasks'
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Signup from './pages/Signup.jsx'
 import Login from './pages/Login.jsx'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
-
+import { authAction } from './store/auth.js'
 
 const App = () => {
   const isloggedIn = useSelector((state) => state.auth.isloggedIn);
   console.log("isloggedIn " , isloggedIn);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-      if (!isloggedIn) {
+
+    if( localStorage.getItem("token") && localStorage.getItem("id") )
+    {
+      dispatch(authAction.login());
+    }
+    else if (isloggedIn === false) {
         console.log("User is not logged in, navigating to login page.");
         navigate('/signup');
       }

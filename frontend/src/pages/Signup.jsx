@@ -1,14 +1,23 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, Navigate } from 'react-router-dom'
 import { useState } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+// import 
 
 const Signup = () => {
 
+  const isloggedIn = useSelector((state) => state.auth.isloggedIn);
+  const history = useNavigate();
+
+  
   const [Data , setData] = useState({ username:"", email:"", password:"" });
   const [error, setError] = useState("");
-  const navigate = useNavigate();
-
+  
+  if (isloggedIn === true) {
+    return <Navigate to="/" replace />;
+    // history("/");
+  }
   const change = (e) => {
     setError("");
     setData({...Data , [e.target.name] : e.target.value});
@@ -26,7 +35,7 @@ const Signup = () => {
         console.log(responce);
         // is i have to empty the data after submiting the form
         setData({ username:"", email:"", password:"" });
-        navigate("/login");
+        history("/login");
       }
     } catch (error) {
       setError(error.response?.data?.message || "Signup failed");
