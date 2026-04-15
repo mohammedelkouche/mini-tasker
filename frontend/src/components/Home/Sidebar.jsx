@@ -52,7 +52,7 @@ const Sidebar = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const responce = await axios.get("http://localhost:5000/api/v2/get-all-tasks"
+        const responce = await axios.get("http://localhost:5000/api/v1/profile"
           , 
           {
             headers
@@ -63,7 +63,8 @@ const Sidebar = () => {
             // }
           }
       );
-      setData(responce.data.data);
+      console.log("response of profile = ", responce);
+      setData(responce.data.user);
 
       } catch (error) {
         console.error("Error fetching tasks:", error);

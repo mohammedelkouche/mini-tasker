@@ -3,6 +3,7 @@ const Task = require("../models/task");
 const User = require("../models/user");
 const {verifyToken} = require("./middleware/auth");
 
+
 // creat task
 router.post("/create-task", verifyToken, async(req, res) =>{
 	try {
@@ -91,7 +92,7 @@ router.delete("/delete-tasks/:id", verifyToken, async(req, res) => {
 
 
 // update task
-router.delete("/update-tasks/:id", verifyToken, async(req, res) => {
+router.put("/update-tasks/:id", verifyToken, async(req, res) => {
 	try {
 		const { id } = req.params;
 		// or  const taskId = req.params.id;
@@ -106,7 +107,7 @@ router.delete("/update-tasks/:id", verifyToken, async(req, res) => {
 			return res.status(404).json({ message: "Task not found" });
 		}		
 		
-		res.status(200).json({ message: "Task updated successfully" });
+		res.status(200).json({ message: "Task updated successfully", task: updatedTask });
 		
 	} catch (error) {
 		console.log(error);

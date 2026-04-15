@@ -63,6 +63,8 @@ router.post("/log-in", async (req, res) => {
     try {
         const { username, password } = req.body;
 
+        console.log("request => ", req.body);
+
         // Find user by username
         const existingUser = await User.findOne({ username });
 
@@ -86,6 +88,23 @@ router.post("/log-in", async (req, res) => {
         return res.status(500).json({ message: "Internal Server Error" });
     }
 });
+
+// Get authenticated user profile (minimal fields for UI)
+router.get("/profile", verifyToken, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select("username email");
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        // user :  email: "ahmed@gmail.com" username: "ahmed" _id: "67d05977f0270665f4266163"
+        // 
+
+        return res.status(200).json({ user });
+    } catch (error) {
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+});
+
 
 
 module.exports = router;

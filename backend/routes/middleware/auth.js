@@ -14,6 +14,7 @@ const verifyToken = (req, res, next) => {
     }
 
     try {
+        // decoded token will contain the user ID and any other payload data we included when signing the token
         const decoded = jwt.verify(token.replace("Bearer ", ""), process.env.JWT_SECRET);
         req.user = decoded;
         next();

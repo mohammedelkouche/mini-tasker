@@ -6,7 +6,27 @@ import axios from 'axios';
 
 const AllTasks = () => {
   const [inputDiv, setInputDiv] = useState("hidden");
-  const [data, setData] = useState(null);
+  // const [data, setData] = useState(null);
+  const [editingTask, setEditingTask] = useState({ id: "", title: "", desc: "" });
+
+
+  const [tasks, setTasks] = useState([]);
+
+  const handleTaskCreated = (newTask) => {
+    setTasks((prevTasks) => [newTask, ...prevTasks]);
+  };
+
+  const handleTaskUpdated = (updatedTask) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task._id === updatedTask._id ? updatedTask : task
+      )
+    );
+  };
+
+  const handleTaskDeleted = (taskId) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
+  };
 
   const headers = {
     id : localStorage.getItem("id"),
@@ -21,7 +41,11 @@ const AllTasks = () => {
           , 
           { headers }
       );
-      setData(responce.data.data);
+      // setData(responce.data.data);
+
+      setTasks(responce.data.data.tasks || []);
+
+      console.log(" test how many times this is called = ");
 
       } catch (error) {
         console.error("Error fetching tasks:", error);
@@ -31,7 +55,6 @@ const AllTasks = () => {
    }, []
   );
 
-  console.log("data = ", data);
 
   return (
     <>
@@ -41,12 +64,24 @@ const AllTasks = () => {
             <IoMdAddCircle  className='text-4xl text-gray-400 hover:text-gray-100 transition-all duration-300' />
           </button>
         </div>
-        {data && 
+        {tasks && 
         (
-         < Card home={true} setInputDiv={setInputDiv}  data={data.tasks} />
+         < Card 
+          home={true}
+          setInputDiv={setInputDiv}
+          data={tasks}
+          setEditingTask={setEditingTask}
+          onTaskDeleted={handleTaskDeleted} />
         )}
       </div>
-      < InputData  inputDiv={inputDiv} setInputDiv={setInputDiv}/>
+      < InputData 
+        inputDiv={inputDiv} 
+        setInputDiv={setInputDiv} 
+        onTaskCreated={handleTaskCreated}
+        onTaskUpdated={handleTaskUpdated}
+        editetask={editingTask}
+        setEditingTask={setEditingTask}
+      />
     </>
   )
 }
