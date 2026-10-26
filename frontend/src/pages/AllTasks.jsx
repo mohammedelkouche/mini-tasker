@@ -59,9 +59,10 @@ const AllTasks = () => {
   return (
     <>
       <div> 
-        <div className='w-full flex  justify-end px-4 py-2'>
+        <div className='w-full flex items-center justify-between px-4 py-2'>
+          <h2 className='text-2xl font-semibold'>All Tasks</h2>
           <button onClick={() => setInputDiv("fixed")}> 
-            <IoMdAddCircle  className='text-4xl text-gray-400 hover:text-gray-100 transition-all duration-300' />
+            <IoMdAddCircle  className='text-4xl text-gray-400 hover:text-gray-100 hover:scale-110 transition-all duration-300' />
           </button>
         </div>
         {tasks && 

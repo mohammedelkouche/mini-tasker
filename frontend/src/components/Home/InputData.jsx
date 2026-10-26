@@ -81,14 +81,14 @@ const InputData = ({ inputDiv, setInputDiv, onTaskCreated, onTaskUpdated, editet
 
   return (
     <>
-        <div className={`${inputDiv} fixed top-0 left-0 bg-gray-800 opacity-80 h-screen w-full`}>
+        <div className={`${inputDiv} fixed top-0 left-0 bg-black/60 backdrop-blur-sm h-screen w-full`}>
             
         </div>
         <div className={` ${inputDiv} fixed top-0 left-0 flex items-center justify-center h-screen w-full`}> 
             
-            <div className='w-2/6 bg-gray-900  p-4 rounded'>
+            <div className='w-11/12 sm:w-4/6 lg:w-2/6 bg-gray-900 border border-gray-700 shadow-2xl p-6 rounded-2xl'>
                 <div className='flex justify-end'>
-                    <button className='text-2xl' 
+                    <button className='text-2xl text-gray-400 hover:text-white hover:rotate-90 transition-all duration-300' 
                         
                         onClick={()=> {
                             setInputDiv("hidden")
@@ -104,29 +104,29 @@ const InputData = ({ inputDiv, setInputDiv, onTaskCreated, onTaskUpdated, editet
                     type="text" 
                     placeholder='Title' 
                     name='title'
-                    className='px-3 py-2 rounded w-full bg-gray-700 my-3'
+                    className='px-4 py-2.5 rounded-lg w-full bg-gray-700 my-3 outline-none focus:ring-2 focus:ring-blue-400 transition'
                     value={data.title}
                     onChange={change}
                 />
                 <textarea 
                     name="desc"
                     cols="30" 
-                    rows="10"
+                    rows="8"
                     type="text" 
                     placeholder='description ...' 
-                    className='px-3 py-2 rounded w-full bg-gray-700 my-3'
+                    className='px-4 py-2.5 rounded-lg w-full bg-gray-700 my-3 outline-none resize-none focus:ring-2 focus:ring-blue-400 transition'
                     value={data.desc}
                     onChange={change}
                 ></textarea>
 
                 {editetask.id ? (
-                < button className='px-3 py-2 bg-green-500 rounded text-black text-xl font-semibold mr-2'
+                < button className='px-5 py-2 bg-green-500 hover:bg-green-400 rounded-lg text-black text-lg font-semibold shadow transition-colors duration-200'
                     onClick ={updateTask}
                 >
                     Update
                 </button>
                 ) : (
-                <button className='px-3 py-2 bg-blue-400 rounded text-black text-xl font-semibold' 
+                <button className='px-5 py-2 bg-blue-400 hover:bg-blue-300 rounded-lg text-black text-lg font-semibold shadow transition-colors duration-200' 
                     onClick={submitdata} > 
                     submit
                 </button>

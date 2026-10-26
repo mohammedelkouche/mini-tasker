@@ -44,37 +44,37 @@ const Login = () => {
         history("/");
       }
     } catch (error) {
-      setError(error.response?.data?.message || "Signup failed");
+      setError(error.response?.data?.message || "Login failed");
     }
   }
 
 
   return (
     <div className=' h-[98vh] flex items-center justify-center'>
-      <div className='p-4 w-2/6 rounded bg-gray-800'>
-        <div className='text-2xl font-semibold'>LogIn</div>
-        {error && <div className='bg-red-500 text-white px-3 py-2 rounded my-2'>{error}</div>}
+      <div className='p-8 w-11/12 sm:w-4/6 lg:w-2/6 rounded-2xl bg-gray-800 border border-gray-700 shadow-2xl'>
+        <div className='text-3xl font-bold mb-2'>LogIn</div>
+        {error && <div className='bg-red-500 text-white px-3 py-2 rounded-lg my-2 text-sm'>{error}</div>}
         <input 
-          type="username"
+          type="text"
           placeholder='username'
-          className='bg-gray-700 px-3 py-2 my-3 w-full rounded'
+          className='bg-gray-700 px-4 py-2.5 my-3 w-full rounded-lg outline-none focus:ring-2 focus:ring-blue-400 transition'
           name='username'
           onChange={change}
           value={Data.username}
         />
         <input 
-          type="passworld"
-          placeholder='passworld'
-          className='bg-gray-700 px-3 py-2 my-3 w-full rounded'
+          type="password"
+          placeholder='password'
+          className='bg-gray-700 px-4 py-2.5 my-3 w-full rounded-lg outline-none focus:ring-2 focus:ring-blue-400 transition'
           name='password'
           onChange={change}
           value={Data.password}
        />
         <div className='w-full flex items-center justify-between'>
-          <button className='bg-blue-400 text-xl  font-semibold text-black px-3 py-2 rounded' onClick={submit}>
+          <button className='bg-blue-400 hover:bg-blue-300 text-lg font-semibold text-black px-5 py-2 rounded-lg shadow transition-colors duration-200' onClick={submit}>
           Login
           </button>
-          <Link to="/signup" className='text-gray-400 hover:text-gray-200'>
+          <Link to="/signup" className='text-sm text-gray-400 hover:text-gray-200 transition-colors'>
             not having un account? SingUp here
           </Link>
         </div>

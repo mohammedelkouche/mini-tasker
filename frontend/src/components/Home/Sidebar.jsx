@@ -77,24 +77,24 @@ const Sidebar = () => {
   return (
     <>
     {data &&
-      <div>
-        <h2 className='text-xl font-semibold'> {data.username}</h2>
-        <h4 className='mb-1 text-gray-400'> {data.email} </h4>
-        <hr />
+      <div className='pb-3'>
+        <h2 className='text-xl font-semibold truncate'> {data.username}</h2>
+        <h4 className='mb-3 text-sm text-gray-400 truncate'> {data.email} </h4>
+        <hr className='border-gray-700' />
       </div>
     }
-      <div>
+      <div className='flex flex-col gap-1 flex-1 py-2'>
         {DATA.map((items, i) => (
           <Link 
             to={items.link}
             key={i} 
-            className='my-2 gap-2 flex items-center hover:bg-blue-600 p-2 rounded transition-all duration-300'>
+            className='gap-3 flex items-center text-sm lg:text-base hover:bg-blue-600 hover:translate-x-1 px-3 py-2.5 rounded-lg transition-all duration-300'>
             {items.icon}  {items.title}
           </Link>
         ))}
       </div>
       <div>
-        <button className='bg-gray-600 w-full p-2 rounded' onClick={logout}> Log out</button>
+        <button className='bg-gray-600 hover:bg-gray-500 w-full px-3 py-2.5 rounded-lg font-medium transition-colors duration-200' onClick={logout}> Log out</button>
       </div>
     </>
   )

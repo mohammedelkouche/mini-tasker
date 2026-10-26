@@ -19,8 +19,8 @@ const Card = ({ home , setInputDiv, data = [], setEditingTask, onTaskDeleted }) 
   const [updatingImportantTaskIds, setUpdatingImportantTaskIds] = useState([]);
 
   useEffect(() => {
-    setTasks(data);
-  }, [data]);
+    setTasks((prev) => (JSON.stringify(prev) === JSON.stringify(data) ? prev : data));
+  }, [JSON.stringify(data)]);
 
   const handleCompletedTask = async (id) => {
       const task = tasks.find((item) => item._id === id);
@@ -131,33 +131,33 @@ const Card = ({ home , setInputDiv, data = [], setEditingTask, onTaskDeleted }) 
 
 
   return (
-    <div className='grid grid-cols-3 gap-4 p-4'>
+    <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 p-2 sm:p-4'>
       {tasks.map((item) => (
-        <div key={item._id} className=' flex flex-col justify-between bg-gray-800 rounded-sm p-4'>
-          <div >  
-            <h3 className='text-xl font-semibold'>{item.title}</h3> 
-            <p className='text-gray-300 my-2'>{item.desc}</p> 
+        <div key={item._id} className='flex flex-col justify-between bg-gray-800 border border-gray-700 rounded-2xl p-5 shadow-lg hover:shadow-xl hover:-translate-y-1 hover:border-gray-600 transition-all duration-300'>
+          <div>
+            <h3 className='text-xl font-semibold break-words'>{item.title}</h3>
+            <p className='text-gray-300 my-3 text-sm leading-relaxed break-words'>{item.desc}</p>
           </div>
-          <div className='mt-4 w-full flex items-center'>
+          <div className='mt-4 w-full flex items-center gap-3'>
             <button 
-              className= {` ${item.complete ?  "bg-green-700" : "bg-red-400" } p-2 rounded w-3/6 ${updatingTaskIds.includes(item._id) ? "opacity-70" : ""} `}
+              className= {` ${item.complete ?  "bg-green-700 hover:bg-green-600" : "bg-red-400 hover:bg-red-500" } px-3 py-2 rounded-lg text-sm font-semibold flex-1 shadow transition-colors duration-200 ${updatingTaskIds.includes(item._id) ? "opacity-70 cursor-not-allowed" : ""} `}
               onClick={() => handleCompletedTask(item._id)}
               disabled={updatingTaskIds.includes(item._id)}
             > 
               {item.complete ? "Completed" : "InCompleted"}
             </button>
-            <div className='text-white  p-2 w-3/6 text-2xl font-semibold flex justify-around'>
+            <div className='text-white text-xl flex items-center gap-3'>
               <button
                 onClick={() => handleImportant(item._id)}
                 disabled={updatingImportantTaskIds.includes(item._id)}
-                className={updatingImportantTaskIds.includes(item._id) ? "opacity-70" : ""}
+                className={`p-1.5 rounded-lg hover:bg-gray-700 hover:scale-110 transition-all duration-200 ${updatingImportantTaskIds.includes(item._id) ? "opacity-70" : ""}`}
               >
                 <FaHeart className={item.important ? "text-red-500" : "text-white"} />
               </button>
-              <button onClick={() => editeTask(item._id, item.title, item.desc ) } >
+              <button className='p-1.5 rounded-lg hover:bg-gray-700 hover:scale-110 transition-all duration-200' onClick={() => editeTask(item._id, item.title, item.desc ) } >
                 <FaEdit />
               </button>
-              <button onClick={() => deleteTask(item._id) } > 
+              <button className='p-1.5 rounded-lg hover:bg-gray-700 hover:text-red-400 hover:scale-110 transition-all duration-200' onClick={() => deleteTask(item._id) } > 
                 <MdDelete />
               </button>
             </div>
@@ -165,7 +165,7 @@ const Card = ({ home , setInputDiv, data = [], setEditingTask, onTaskDeleted }) 
         </div>
       ))}
       {home && (
-        <button className=' flex flex-col justify-center items-center bg-gray-800 rounded-sm p-4 hover:scale-105 hover: cursor-pointer transition-all duration-300' onClick={ ()=> setInputDiv("fixed")}>
+        <button className='flex flex-col justify-center items-center min-h-[160px] bg-gray-800/50 border-2 border-dashed border-gray-600 rounded-2xl p-5 text-gray-400 hover:text-white hover:border-gray-400 hover:bg-gray-800 hover:scale-105 cursor-pointer transition-all duration-300' onClick={ ()=> setInputDiv("fixed")}>
           <IoMdAddCircle  className='text-5xl '/>
           <h2 className='text-2xl mt-4'>Add Task</h2>
         </button> 
